@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ollama Chat</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/11.1.1/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <button id="new-chat-btn" onclick="createNewChat()">+ New Chat</button>
+            <h2>Chats</h2>
+            <div class="search-container">
+                <input type="text" id="search-input" onkeyup="filterChats()" placeholder="Search chats...">
+            </div>
+            <div id="chat-list" class="chat-list"></div>
+            <h2>Models</h2>
+            <select id="model-select" class="model-select" onchange="selectModel(this)"></select>
+            <div class="install-section">
+                <h3>Install Model</h3>
+                <input type="text" id="model-name-input" placeholder="e.g., llava:7b">
+                <button id="install-btn" onclick="installModel()">Install</button>
+                <div class="vision-checkbox-container">
+                    <input type="checkbox" id="is-vision-checkbox">
+                    <label for="is-vision-checkbox">Vision model</label>
+                </div>
+                <div id="install-progress" class="install-progress"></div>
+            </div>
+            <button id="theme-toggle-btn" onclick="toggleTheme()">Toggle Theme</button>
+        </div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2 id="current-model">Select a chat to begin</h2>
+                <div>
+                    <button id="import-btn" class="header-btn" onclick="openImportModal()">📥 Import</button>
+                    <button class="clear-btn" onclick="deleteCurrentChat()">Delete Chat</button>
+                </div>
+            </div>
+            <div id="chat-messages" class="chat-messages"></div>
+            <div class="chat-input-container">
+                <div id="image-preview-container"></div>
+                <div class="input-row">
+                    <input type="file" id="image-upload-input" accept="image/*" hidden multiple>
+                    <button id="attach-btn" disabled>📎</button>
+                    <textarea id="chat-input" placeholder="Type your message..." rows="1"></textarea>
+                    <button id="settings-btn" onclick="toggleSettings()">⚙️</button>
+                    <button id="send-btn" onclick="sendMessage()">Send</button>
+                </div>
+                <div id="model-parameters">
+                    <div class="parameter">
+                        <label for="temperature">Temperature: <span id="temperature-value">1.0</span></label>
+                        <input type="range" id="temperature" min="0" max="2" step="0.1" value="1.0">
+                    </div>
+                    <div class="parameter">
+                        <label for="top-p">Top P: <span id="top-p-value">1.00</span></label>
+                        <input type="range" id="top-p" min="0" max="1" step="0.05" value="1.0">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="import-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Import Context From...</h3>
+            <div id="import-chat-list" class="import-chat-list"></div>
+            <div class="modal-actions">
+                <button id="import-confirm-btn" onclick="importSelectedChat()">Import</button>
+                <button id="import-cancel-btn" onclick="closeImportModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
