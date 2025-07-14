@@ -14,11 +14,6 @@ Fuse and manage multiple local AI models in one place. Your Ultimate Platforme t
   <img src="demo_matarials/ModelsVerse_49.01_125.14.gif" alt="Model Management Demo" width="90%">
 </p>
 
-### Vision Support
-<p align="center">
-  <img src="demo_matarials/ModelsVerse_125.14_184.70.gif" alt="Vision Support Demo" width="90%">
-</p>
-
 ## About The Project
 
 ModelVerse is a full-stack web application that provides a clean, feature-rich user interface for interacting with local large language models (LLMs) and vision models through Ollama.
